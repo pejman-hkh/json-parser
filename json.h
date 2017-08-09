@@ -11,10 +11,9 @@ class json_parser {
 		std::string _error;
 		int _length;
 	public:
-		json_parser( std::string str ) : str( str ) {}
+		json_parser( std::string str ) : str( str ), _length( str.length() ) {}
 
 		var start() {
-			_length = str.length();
 			return get_val();
 			 
 		}
@@ -161,11 +160,10 @@ class json_parser {
 				if( str[_offset] == ',' ) {
 					_offset++;
 					continue;
-				}
-
-		 
-				if( str[_offset] == ']' ) {
+				} else if( str[_offset] == ']' ) {
 					return arr;
+				} else {
+					break;
 				}
 			}
 		}
@@ -191,6 +189,8 @@ class json_parser {
 				} else if( str[_offset] == '}' ) {
 					_offset++;
 					return arr;
+				} else {
+					break;
 				}
 			}
 		}
