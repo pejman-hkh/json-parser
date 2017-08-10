@@ -17,6 +17,26 @@ int main( int argc, char** argv  ) {
 
 }
 ```
+# Out put
+```
+Array (
+	[0] => Array (
+		[test] => test1
+		[sss] => 1
+		[aaa] => Array (
+			[ppp] => Array (
+				[0] => 1
+				[1] => 2
+				[2] => 3
+				[3] => 4.32
+			)
+		)
+	)
+	[1] => Array (
+		[ss] => 0
+	)
+)
+```
 
 # C++ vars
 See [C++ vars](https://github.com/pejman-hkh/cpp-vars) for var usage
