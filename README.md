@@ -3,19 +3,12 @@ Simple json parser
 
 # Usage
 ```c++
-#include "var.h"
-#include "json.h"
+json_parser j("[{ \"test\" : \"test1\", \"sss\" : true, \"aaa\" : {\"ppp\" : [1,2,3,4.32]} }, { \"ss\" : false }]");
+var out = j.decode();
 
-using namespace vars;
+print_r( out );
 
-int main( int argc, char** argv  ) {
-
-	json_parser j("[{ \"test\" : \"test1\", \"sss\" : true, \"aaa\" : {\"ppp\" : [1,2,3,4.32]} }, { \"ss\" : false }]");
-	var out = j.start();
-
-	print_r( out );
-
-}
+echo( j.encode( out ) );
 ```
 # Output
 ```
@@ -36,6 +29,7 @@ Array (
 		[ss] => 0
 	)
 )
+[{"test":"test1","sss":1,"aaa":{"ppp":[1,2,3,4.32]}},{"ss":0}]
 ```
 
 # C++ vars
