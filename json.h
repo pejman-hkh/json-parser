@@ -13,9 +13,63 @@ class json_parser {
 	public:
 		json_parser( std::string str ) : str( str ), _length( str.length() ) {}
 
-		var start() {
-			return get_val();
-			 
+		std::string escape_json( var a ) {
+		    var ff;
+		    ff["\\"] = "\\\\";   
+		    ff["\""] = "\\\""; 
+		    ff["/"] = "\\/";
+		    ff["\b"] = "\\b"; 
+		    ff["\f"] = "\\f";     
+		    ff["\n"] = "\\n";
+		    ff["\r"] = "\\r";
+		    ff["\t"] = "\\t";
+		    
+		    a.replace( ff );
+
+		    return a.string();
+		}
+
+		std::string encode( var a ) {
+
+		    if( a.size() == 0 ) {
+		        return "[]";
+		    }
+
+		    std::string out, start, pre, end = "";
+
+		    int i = 0;
+		    for( auto x : a ) {
+		        if( i == 0 ) {
+		            if( x.type() == VAR_STRING ) {
+		                start = "{";
+		                end = "}";
+		            } else {
+		                start = "[";
+		                end = "]";
+		            }
+
+		            out += start;
+		        }
+		        
+		        if( a[x].type() == VAR_ARRAY ) {
+		            out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+encode( a[x] );
+		            
+		        } else {
+
+		            out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+( a[x].type() != VAR_STRING ?  a[x].string() :  "\""+escape_json( a[x] )+"\"" );
+		        }
+
+		        pre = ",";
+		        i++;
+		    }
+
+		    out += end;
+
+		    return out;
+		}
+
+		var decode() {
+			return get_val(); 
 		}
 
 		var get_val() {
