@@ -1,5 +1,5 @@
 # Json-parser
-Simple json parser
+Simple C++ json parser
 
 # Usage
 ```c++
