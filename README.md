@@ -40,6 +40,3 @@ See [C++ vars](https://github.com/pejman-hkh/cpp-vars) for var usage
 ```
 g++ -std=c++11 json.cpp -o test
 ```
-
-# Json escape
-Will added soon ...
