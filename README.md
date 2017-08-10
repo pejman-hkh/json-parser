@@ -17,7 +17,7 @@ int main( int argc, char** argv  ) {
 
 }
 ```
-# Out put
+# Output
 ```
 Array (
 	[0] => Array (
