@@ -1,10 +1,10 @@
-# Json-parser
+# PPP-Json-parser
 Simple C++ json parser
 
 # Usage
 ```c++
-json_parser j("[{ \"test\" : \"test1\", \"sss\" : true, \"aaa\" : {\"ppp\" : [1,2,3,4.32]} }, { \"ss\" : false }]");
-var out = j.decode();
+ppp_json::json_parser j;
+var out = j.decode("[{ \"test\" : \"test1\", \"sss\" : true, \"aaa\" : {\"ppp\" : [1,2,3,4.32]} }, { \"ss\" : false }]");
 
 print_r( out );
 
