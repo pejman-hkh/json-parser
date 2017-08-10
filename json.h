@@ -161,6 +161,7 @@ class json_parser {
 					_offset++;
 					continue;
 				} else if( str[_offset] == ']' ) {
+					_offset++;
 					return arr;
 				} else {
 					break;
