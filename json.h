@@ -133,29 +133,29 @@ namespace ppp_json {
 			var do_string() {
 				std::string pass;
 
-                while(!(str[_offset] == '"' && str[_offset-1] != '\\') && _offset < _length ) {
-    
-                    if(str[_offset] == '\\') {
+				while(!(str[_offset] == '"' && str[_offset-1] != '\\') && _offset < _length ) {
+	
+					if(str[_offset] == '\\') {
 
-                       switch(str[++_offset]) {
-                            case 'a': pass += '\a'; break;
-                            case 'b': pass += '\b'; break;
-                            case 'f': pass += '\f'; break;
-                            case 'n': pass += '\n'; break;
-                            case 'r': pass += '\r'; break;
-                            case 't': pass += '\t'; break;
-                            case 'v': pass += '\v'; break;
-                            case '\'': pass += '\''; break;
-                            case '\"': pass += '\"'; break;
-                            default:
-                                pass += '\\';
-                                pass += str[_offset];
-                        }
-                        _offset++;
-                    } else {
-                        pass += str[_offset++];  
-                    } 
-                }
+					   switch(str[++_offset]) {
+							case 'a': pass += '\a'; break;
+							case 'b': pass += '\b'; break;
+							case 'f': pass += '\f'; break;
+							case 'n': pass += '\n'; break;
+							case 'r': pass += '\r'; break;
+							case 't': pass += '\t'; break;
+							case 'v': pass += '\v'; break;
+							case '\'': pass += '\''; break;
+							case '\"': pass += '\"'; break;
+							default:
+								pass += '\\';
+								pass += str[_offset];
+						}
+						_offset++;
+					} else {
+						pass += str[_offset++];  
+					} 
+				}
 
 				_offset++;
 				
@@ -215,19 +215,19 @@ namespace ppp_json {
 
 
 			std::string escape( var a ) {
-			    var ff;
-			    ff["\\"] = "\\\\";   
-			    ff["\""] = "\\\""; 
-			    ff["/"] = "\\/";
-			    ff["\b"] = "\\b"; 
-			    ff["\f"] = "\\f";     
-			    ff["\n"] = "\\n";
-			    ff["\r"] = "\\r";
-			    ff["\t"] = "\\t";
-			    
-			    a.replace( ff );
+				var ff;
+				ff["\\"] = "\\\\";   
+				ff["\""] = "\\\""; 
+				ff["/"] = "\\/";
+				ff["\b"] = "\\b"; 
+				ff["\f"] = "\\f";	 
+				ff["\n"] = "\\n";
+				ff["\r"] = "\\r";
+				ff["\t"] = "\\t";
+				
+				a.replace( ff );
 
-			    return a.string();
+				return a.string();
 			}
 							
 		public:
@@ -235,41 +235,41 @@ namespace ppp_json {
 
 			std::string encode( var a ) {
 
-			    if( a.size() == 0 ) {
-			        return "[]";
-			    }
+				if( a.size() == 0 ) {
+					return "[]";
+				}
 
-			    std::string out, start, pre, end = "";
+				std::string out, start, pre, end = "";
 
-			    int i = 0;
-			    for( auto x : a ) {
-			        if( i == 0 ) {
-			            if( x.type() == VAR_STRING ) {
-			                start = "{";
-			                end = "}";
-			            } else {
-			                start = "[";
-			                end = "]";
-			            }
+				int i = 0;
+				for( auto x : a ) {
+					if( i == 0 ) {
+						if( x.type() == VAR_STRING ) {
+							start = "{";
+							end = "}";
+						} else {
+							start = "[";
+							end = "]";
+						}
 
-			            out += start;
-			        }
-			        
-			        if( a[x].type() == VAR_ARRAY ) {
-			            out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+encode( a[x] );
-			            
-			        } else {
+						out += start;
+					}
+					
+					if( a[x].type() == VAR_ARRAY ) {
+						out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+encode( a[x] );
+						
+					} else {
 
-			            out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+( a[x].type() != VAR_STRING ?  a[x].string() :  "\""+escape( a[x] )+"\"" );
-			        }
+						out += pre+( x.type() == VAR_STRING ? "\""+x.string()+"\""+":" : "" )+( a[x].type() != VAR_STRING ?  a[x].string() :  "\""+escape( a[x] )+"\"" );
+					}
 
-			        pre = ",";
-			        i++;
-			    }
+					pre = ",";
+					i++;
+				}
 
-			    out += end;
+				out += end;
 
-			    return out;
+				return out;
 			}
 
 			var decode( const std::string &str1 ) {
