@@ -132,9 +132,31 @@ namespace ppp_json {
 
 			var do_string() {
 				std::string pass;
-				while( str[_offset] != '"' ) {
-					pass += str[_offset++];
-				}
+
+                while(!(str[_offset] == '"' && str[_offset-1] != '\\') && _offset < _length ) {
+    
+                    if(str[_offset] == '\\') {
+
+                       switch(str[++_offset]) {
+                            case 'a': pass += '\a'; break;
+                            case 'b': pass += '\b'; break;
+                            case 'f': pass += '\f'; break;
+                            case 'n': pass += '\n'; break;
+                            case 'r': pass += '\r'; break;
+                            case 't': pass += '\t'; break;
+                            case 'v': pass += '\v'; break;
+                            case '\'': pass += '\''; break;
+                            case '\"': pass += '\"'; break;
+                            default:
+                                pass += '\\';
+                                pass += str[_offset];
+                        }
+                        _offset++;
+                    } else {
+                        pass += str[_offset++];  
+                    } 
+                }
+
 				_offset++;
 				
 				skip_space();
